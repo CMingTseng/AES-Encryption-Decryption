@@ -1,4 +1,4 @@
-package com.example.azrashaikh.cryptography;
+package com.azrashaikh.cryptography;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.azrashaikh.aeslib.SymmetricAlgorithmAES;
+
 /**
  * Created by azra.shaikh on 25-05-2016.
  */
@@ -20,6 +22,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     EditText editTextOriginal;
     String encryptedString;
     private Button buttonDecrypt, buttonClear;
+    SymmetricAlgorithmAES symmetricAlgorithmAES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         buttonEncrypt.setOnClickListener(this);
         buttonDecrypt.setOnClickListener(this);
         buttonClear.setOnClickListener(this);
+
+        symmetricAlgorithmAES= new SymmetricAlgorithmAES(this);
     }
 
     private void showDialog(String title, String message) {
@@ -51,8 +56,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnEncrypt:
 
+
                 if (editTextOriginal.getText().toString().trim().length() > 0) {
-                    encryptedString = SymmetricAlgorithmAES
+                    encryptedString = symmetricAlgorithmAES
                             .encryptString(editTextOriginal.getText().toString()
                                     .trim());
                     showDialog("Encrypted Text", encryptedString);
@@ -69,12 +75,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             Toast.LENGTH_LONG).show();
                 } else {
                     showDialog("Decrypted Text",
-                            SymmetricAlgorithmAES.decryptString(encryptedString));
+                            symmetricAlgorithmAES.decryptString(encryptedString));
                 }
 
                 break;
             case R.id.buttonClear:
-                Prefs.clear(getApplicationContext());
+                symmetricAlgorithmAES.clearAll();
                 encryptedString = null;
                 Toast.makeText(getApplicationContext(),
                         "Preference data is cleared !!", Toast.LENGTH_LONG).show();

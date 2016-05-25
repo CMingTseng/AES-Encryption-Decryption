@@ -1,4 +1,4 @@
-package com.example.azrashaikh.cryptography;
+package com.azrashaikh.aeslib;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,18 +31,6 @@ public class Prefs {
      */
     public static void addKey(Context context, String key, String val) {
         SharedPreferences settings = Prefs.get(context);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(key, val);
-        editor.commit();
-    }
-
-    /**
-     * @param key - Constant key, will be used for accessing the stored value
-     * @param val - String value to be stored
-     */
-    public static void addKey(String key, String val) {
-        SharedPreferences settings = Prefs.get(CryptgraphyApplication
-                .getAppContext());
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, val);
         editor.commit();
@@ -133,51 +121,6 @@ public class Prefs {
         return prefs.getString(key, "");
     }
 
-    /**
-     * Get preference value by passing related key
-     *
-     * @param key - key value used when adding preference
-     * @return - String value
-     */
-    public static String getKey(String key) {
-        SharedPreferences prefs = Prefs.get(CryptgraphyApplication
-                .getAppContext());
-        return prefs.getString(key, "");
-    }
-
-    /**
-     * Get preference value by passing related key
-     *
-     * @param context - context
-     * @param key     - key value used when adding preference
-     * @return - long value
-     */
-    public static long getKey_long(Context context, String key) {
-        SharedPreferences prefs = Prefs.get(context);
-        return prefs.getLong(key, 0);
-    }
-
-    public static boolean getKey_boolean(Context context, String key) {
-        SharedPreferences prefs = Prefs.get(context);
-        if (prefs.contains(key)) {
-            return prefs.getBoolean(key, false);
-        }
-        return false;
-    }
-
-    public static boolean getKey_boolean_with_default_true(Context context,
-                                                           String key) {
-        SharedPreferences prefs = Prefs.get(context);
-        if (prefs.contains(key)) {
-            return prefs.getBoolean(key, true);
-        }
-        return true;
-    }
-
-    public static int getKey_int(Context context, String key) {
-        SharedPreferences prefs = Prefs.get(context);
-        return prefs.getInt(key, 0);
-    }
 
     /**
      * Clear all stored preferences

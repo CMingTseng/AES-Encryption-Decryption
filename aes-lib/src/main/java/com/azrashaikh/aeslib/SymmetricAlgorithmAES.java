@@ -1,5 +1,6 @@
-package com.example.azrashaikh.cryptography;
+package com.azrashaikh.aeslib;
 
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
@@ -11,14 +12,20 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class SymmetricAlgorithmAES {
-    static final String TAG = "SymmetricAlgorithmAES";
+    final String TAG = "SymmetricAlgorithmAES";
 
-    static SecretKeySpec secretKeySpec = null;
+    SecretKeySpec secretKeySpec = null;
+    private Context mContext;
 
-    public static void SetSecretKeySpecs() {
-        secretKeySpec = null;
+    public SymmetricAlgorithmAES(Context context) {
+        mContext = context;
     }
 
+    /*public static void SetSecretKeySpecs() {
+        secretKeySpec = null;
+
+    }
+*/
     public static SecretKeySpec GenerateSecretKeySpecs() {
         // Set up secret key spec for 128-bit AES encryption and decryption
         try {
@@ -34,21 +41,21 @@ public class SymmetricAlgorithmAES {
 
     }
 
-    public static String encryptString(String dataToEncrypt) {
+    public String encryptString(String dataToEncrypt) {
 
         try {
 
-            if (Prefs.getKey(Prefs.SECRET_KEY) == "") {
+            if (Prefs.getKey(mContext, Prefs.SECRET_KEY) == "") {
                 secretKeySpec = GenerateSecretKeySpecs();
                 String stringSecretKey = Base64.encodeToString(
                         secretKeySpec.getEncoded(), Base64.DEFAULT);
-                Prefs.addKey(Prefs.SECRET_KEY, stringSecretKey);
+                Prefs.addKey(mContext, Prefs.SECRET_KEY, stringSecretKey);
             }
-            if (Prefs.getKey(Prefs.SECRET_KEY) != "") {
+            if (Prefs.getKey(mContext, Prefs.SECRET_KEY) != "") {
                 byte[] encodedBytes = null;
 
                 Cipher c = Cipher.getInstance("AES");
-                String key = Prefs.getKey(Prefs.SECRET_KEY);
+                String key = Prefs.getKey(mContext, Prefs.SECRET_KEY);
 
                 byte[] encodedKey = Base64.decode(key, Base64.DEFAULT);
                 SecretKey originalKey = new SecretKeySpec(encodedKey, 0,
@@ -66,14 +73,14 @@ public class SymmetricAlgorithmAES {
         }
     }
 
-    public static String decryptString(String dataToDecrypt) {
+    public String decryptString(String dataToDecrypt) {
 
-        if (Prefs.getKey(Prefs.SECRET_KEY) != "") {
+        if (Prefs.getKey(mContext, Prefs.SECRET_KEY) != "") {
             byte[] decodedBytes = null;
             try {
                 Cipher c = Cipher.getInstance("AES");
 
-                String key = Prefs.getKey(Prefs.SECRET_KEY);
+                String key = Prefs.getKey(mContext, Prefs.SECRET_KEY);
                 byte[] encodedKey = Base64.decode(key, Base64.DEFAULT);
                 SecretKey originalKey = new SecretKeySpec(encodedKey, 0,
                         encodedKey.length, "AES");
@@ -93,6 +100,10 @@ public class SymmetricAlgorithmAES {
         } else
             return null;
 
+    }
+
+    public void clearAll() {
+        Prefs.clear(mContext);
     }
 
 }

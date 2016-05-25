@@ -1,4 +1,4 @@
-package com.example.azrashaikh.cryptography;
+package com.azrashaikh.cryptography;
 
 import android.app.Application;
 import android.content.Context;
