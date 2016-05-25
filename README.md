@@ -7,6 +7,24 @@ Encryption-Decryption using AES(Advance Encryption Standard) symmetric algorithm
 -------------------
 You can encrypt/ decrypt passowrd, tocken or any secret key 
 
+# How to setup
+Add the below dependencies into your gradle file:
+
+    compile 'com.azrashaikh.cryptography:aes-lib:1.0.1'
+    
+# How to use
+1. Create instance of class SymmetricAlgorithmAES: 
+
+     `SymmetricAlgorithmAES symmetricAlgorithmAES= new SymmetricAlgorithmAES(this);`
+2. To encypt  data :
+
+     `symmetricAlgorithmAES.encryptString("yourStringToEncypt");`
+
+3. To decrypt data :
+
+     `symmetricAlgorithmAES.decryptString("yourStringToEncypt");`
+
+
 Screenshots : 
 <ul> 
 <li> Enter the text to encrypt  <br>
