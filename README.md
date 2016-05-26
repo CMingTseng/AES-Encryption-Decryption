@@ -4,13 +4,22 @@
 
 Encryption-Decryption using AES(Advance Encryption Standard) symmetric algorithm in Android
 
--------------------
 You can encrypt/ decrypt passowrd, tocken or any secret key 
 
-# How to setup
-Add the below dependencies into your gradle file:
+# How to setup 
+Gradle : <br>
+Add the below dependency into your gradle file:
 
     compile 'com.azrashaikh.cryptography:aes-lib:1.0.1'
+    
+<br> Pom : <br>
+    
+   
+    <dependency org='com.azrashaikh.cryptography' name='aes-lib' rev='1.0.1'>
+        <artifact name='$AID' ext='pom'></artifact>
+    </dependency>
+  
+
     
 # How to use
 1. Create instance of class SymmetricAlgorithmAES: 
