@@ -4,7 +4,7 @@
 
 Encryption-Decryption using AES(Advance Encryption Standard) symmetric algorithm in Android
 
-You can encrypt/ decrypt passowrd, tocken or any secret key 
+You can encrypt/ decrypt password, tocken or any secret key 
 
 # How to setup 
 Gradle : <br>
